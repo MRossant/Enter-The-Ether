@@ -21,9 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
     //     .then(data => {
     //         const ethPriceHTML = document.getElementById("eth-circulation");
     //         ethPriceHTML.innerHTML = `<h1>Current Gas Price in Gwei: ${data.result.ProposeGasPrice}</h1>`
-    //     })  
+    //     })
+    
+    // Get Current amount of ETH in circulation
+    getData("https://api.etherscan.io/api?module=stats&action=ethsupply&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
+        .then(data => {
+            let totalEthCir = data.result * (10 ** -18);
+            console.log(totalEthCir);
+        })
 
-    // Get ETH historical market data for past 6 months
     let ethId = "ethereum";
     let ethSym = "eth";
     let ethName = "Ethereum";
@@ -40,6 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
         return fullDate;
     }
 
+    // Get ETH historical daily market data for past 6 months (price, volume, market cap)
     getData("https://api.coingecko.com/api/v3/coins/ethereum/market_chart/range?vs_currency=usd&from=1618176695&to=1633901495")
         .then(data => {
             const prices = data.prices;
@@ -47,20 +54,38 @@ document.addEventListener("DOMContentLoaded", () => {
             const totalVol = data.total_volumes;
 
             // Creating an array of UNIX Timestamps
-            const unixDates = [];
+            // const unixDates = [];
+
+
             prices.forEach(price => {
-                unixDates.push(price[0]);
+                let unixTimestamp = price[0];
+                let date = timeConverter(unixTimestamp);
+                price[0] = date;
             })
+
+            marketCap.forEach(mktcap => {
+                let unixTimestamp = mktcap[0];
+                let date = timeConverter(unixTimestamp);
+                mktcap[0] = date;
+            })
+
+            totalVol.forEach(vol => {
+                let unixTimestamp = vol[0];
+                let date = timeConverter(unixTimestamp);
+                vol[0] = date;
+            })
+
             // console.log(unixDates);
 
             // Creating an array of Dates (converted from Unix Timestamps)
-            const datesArr = [];
-            for (let i = 0; i < unixDates.length; i++) {
-                let unixTimestamp = unixDates[i];
-                let date = timeConverter(unixTimestamp);
-                datesArr.push(date);
-            }
-            console.log(datesArr);
+            // const datesArr = [];
+            // for (let i = 0; i < unixDates.length; i++) {
+            //     let unixTimestamp = unixDates[i];
+            //     let date = timeConverter(unixTimestamp);
+            //     datesArr.push(date);
+            // }
+            // console.log(datesArr);
+
 
             // console.log(unixDates);
 
@@ -69,6 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // console.log(totalVol);
         })
 
-    // 
+   
+    
 
 })
