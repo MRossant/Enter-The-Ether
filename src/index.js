@@ -29,9 +29,46 @@ document.addEventListener("DOMContentLoaded", () => {
     let ethName = "Ethereum";
     let unixToday = 1633901495; // Unix Timestamp Oct 10, 2021, 17:31:35 GMT-0400
     let unixPast = 1618176695; // Unix Timestamp Apr 11, 2021, 17:31:35 GMT-0400
+
+    function timeConverter(unixTimestamp) {
+        let a = new Date(unixTimestamp);
+        let months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        let year = a.getFullYear();
+        let month = months[a.getMonth()];
+        let date = a.getDate();
+        let fullDate = date + ' ' + month + ' ' + year;
+        return fullDate;
+    }
+
     getData("https://api.coingecko.com/api/v3/coins/ethereum/market_chart/range?vs_currency=usd&from=1618176695&to=1633901495")
         .then(data => {
-            console.log(data);
+            const prices = data.prices;
+            const marketCap = data.market_caps;
+            const totalVol = data.total_volumes;
+
+            // Creating an array of UNIX Timestamps
+            const unixDates = [];
+            prices.forEach(price => {
+                unixDates.push(price[0]);
+            })
+            // console.log(unixDates);
+
+            // Creating an array of Dates (converted from Unix Timestamps)
+            const datesArr = [];
+            for (let i = 0; i < unixDates.length; i++) {
+                let unixTimestamp = unixDates[i];
+                let date = timeConverter(unixTimestamp);
+                datesArr.push(date);
+            }
+            console.log(datesArr);
+
+            // console.log(unixDates);
+
+            // console.log(prices);
+            // console.log(marketCap);
+            // console.log(totalVol);
         })
+
+    // 
 
 })
