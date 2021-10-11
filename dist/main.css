@@ -61,6 +61,20 @@ table {
 
 #cta-enter {
   height: 40px;
+  font-family: "Montserrat", sans-serif;
+}
+
+#fp-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+#fp-modal p {
+  margin-bottom: 40px;
+  font-family: "Montserrat", sans-serif;
 }
 
 .line-chart {

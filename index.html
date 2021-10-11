@@ -8,13 +8,17 @@
     <link rel="stylesheet" href="./dist/main.css" />
     <script src="./dist/main.js"></script>
     <script src='https://d3js.org/d3.v4.min.js'></script>
-    <title>Project Name</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet">
+    <title>Enter the Ether</title>
 </head>
 
 <body>
     <div id="fp-modal">
+        <img src="assets/ethereum-eth-logo-animated.gif" alt="Ethereum gif logo"/>
         <p>Introducing 'Enter the Ether', an interactive visualization of the Ethereum blockchain. </p>
-        <p>Take a dive into the Ether by clicking the button below</p>
+        <p>Take a dive into the Ether by clicking the button below:</p>
         <button id="cta-enter">Enter the Ether</button>
     </div>
 
@@ -22,6 +26,13 @@
         <h1 id="eth-price"></h1>
         <h1 id="eth-gas"></h1>
     
+        <label for="data-type">Choose a data type:</label>
+
+        <select id="data-type">
+            <option value="historical-prices">Historical Prices of ETH (6 months)</option>
+            <option value="historical-marketcap">Historical Market Cap of ETH (6 months)</option>
+            <option value="historical-volume">Historical Volume of ETH (6 months)</option>
+        </select>
         <svg></svg>
     </div>
 </body>

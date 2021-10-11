@@ -4,7 +4,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const enterBtn = document.querySelector("#cta-enter");
     console.log(enterBtn);
-    
+    enterBtn.addEventListener("click", e => {
+        document.getElementById("fp-modal").style.display = "none";
+        document.getElementById("home-page").style.display = "block";
+    })
+
     async function getData(url) {
     const response = await fetch(url);
     if (!response.ok) {
@@ -14,19 +18,19 @@ document.addEventListener("DOMContentLoaded", () => {
     return data;
     }
 
-    // // Get Current Eth Price
-    // getData("https://api.etherscan.io/api?module=stats&action=ethprice&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
-    //     .then(data => {
-    //         const ethPriceHTML = document.getElementById("eth-price");
-    //         ethPriceHTML.innerHTML = `<h1>Current ETH Price: ${data.result.ethusd}</h1>`
-    //     })
+    // Get Current Eth Price
+    getData("https://api.etherscan.io/api?module=stats&action=ethprice&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
+        .then(data => {
+            const ethPriceHTML = document.getElementById("eth-price");
+            ethPriceHTML.innerHTML = `<h1>Current ETH Price: $${data.result.ethusd}</h1>`
+        })
 
-    // // Get Current Gas Price
-    // getData("https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
-    //     .then(data => {
-    //         const ethPriceHTML = document.getElementById("eth-circulation");
-    //         ethPriceHTML.innerHTML = `<h1>Current Gas Price in Gwei: ${data.result.ProposeGasPrice}</h1>`
-    //     })
+    // Get Current Gas Price
+    getData("https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
+        .then(data => {
+            const ethPriceHTML = document.getElementById("eth-gas");
+            ethPriceHTML.innerHTML = `<h1>Current Gas Price in Gwei: ${data.result.ProposeGasPrice}</h1>`
+        })
     
     // Get Current amount of ETH in circulation
     // getData("https://api.etherscan.io/api?module=stats&action=ethsupply&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
