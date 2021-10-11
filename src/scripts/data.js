@@ -7,6 +7,4 @@ async function getData(url) {
     return data;
 }
 
-
-
 module.exports = getData;
