@@ -72,57 +72,61 @@
 </head>
 
 <body>
-    <div id="fp-modal">
-        <img src="assets/ethereum-eth-logo-animated.gif" alt="Ethereum gif logo" />
-        <p>Introducing 'Enter the Ether', an interactive visualization of the Ethereum blockchain. </p>
-        <p>Take a dive into the Ether by clicking the button below:</p>
-        <button id="cta-enter">Enter the Ether</button>
-    </div>
-
-    <div id="home-page">
-
-        <table id="table">
-            <tr>
-                <th class="table-head"></th>
-                <th class="table-head">Price</th>
-                <th class="table-head">1hr %</th>
-                <th class="table-head">24hr %</th>
-                <th class="table-head">7d %</th>
-                <th class="table-head">Market Cap</th>
-                <th class="table-head">Circulating Supply</th>
-                <th class="table-head">Gas Price (Gwei)</th>
-            </tr>
-            <tr>
-                <td class="table-ele">Ethereum</td>
-                <td id="eth-price" class="table-ele"></td>
-                <td id="eth-price-change-1hr" class="table-ele"></td>
-                <td id="eth-price-change-24hr" class="table-ele"></td>
-                <td id="eth-price-change-7d" class="table-ele"></td>
-                <td id="eth-cap" class="table-ele"></td>
-                <td id="eth-cir" class="table-ele"></td>
-                <td id="eth-gas" class="table-ele"></td>
-            </tr>
-        </table>
-
-        <label for="data-type">Choose a data type:</label>
-        <select id="data-type">
-            <option value="historical-prices">Historical Prices</option>
-            <option value="historical-marketcap">Historical Market Cap</option>
-            <option value="historical-volume">Historical Volume</option>
-        </select>
-
-        <label for="time-range">Choose a time range:</label>
-        <select id="time-range">
-            <option value="historical-six-months">6 months</option>
-            <option value="historical-one-yr">1 year</option>
-            <option value="historical-two-yrs">2 years</option>
-        </select>
-
-        <button id="submit-chart">Submit</button>
-        <div id="chart">
-            <svg></svg>
+    <main>
+        <div id="fp-modal">
+            <img src="assets/ethereum-eth-logo-animated.gif" alt="Ethereum gif logo" />
+            <p>Introducing 'Enter the Ether', an interactive visualization of the Ethereum blockchain. </p>
+            <p>Take a dive into the Ether by clicking the button below:</p>
+            <button id="cta-enter">Enter the Ether</button>
         </div>
-    </div>
+
+        <div id="home-page">
+
+            <table id="table">
+                <tr>
+                    <th class="table-head"></th>
+                    <th class="table-head">Price</th>
+                    <th class="table-head">1hr %</th>
+                    <th class="table-head">24hr %</th>
+                    <th class="table-head">7d %</th>
+                    <th class="table-head">Market Cap</th>
+                    <th class="table-head">Circulating Supply</th>
+                    <th class="table-head">Gas Price (Gwei)</th>
+                </tr>
+                <tr>
+                    <td class="table-ele"><img src="./assets/eth-diamond-purple.png" id="eth-logo"/> Ethereum</td>
+                    <td id="eth-price" class="table-ele"></td>
+                    <td id="eth-price-change-1hr" class="table-ele"></td>
+                    <td id="eth-price-change-24hr" class="table-ele"></td>
+                    <td id="eth-price-change-7d" class="table-ele"></td>
+                    <td id="eth-cap" class="table-ele"></td>
+                    <td id="eth-cir" class="table-ele"></td>
+                    <td id="eth-gas" class="table-ele"></td>
+                </tr>
+            </table>
+
+            <div id="chart-options">
+                <label for="data-type">Choose a data type:</label>
+                <select id="data-type">
+                    <option value="historical-prices">Historical Prices</option>
+                    <option value="historical-marketcap">Historical Market Cap</option>
+                    <option value="historical-volume">Historical Volume</option>
+                </select>
+
+                <label for="time-range">Choose a time range:</label>
+                <select id="time-range">
+                    <option value="historical-six-months">6 months</option>
+                    <option value="historical-one-yr">1 year</option>
+                    <option value="historical-two-yrs">2 years</option>
+                </select>
+
+                <button id="submit-chart">Submit</button>
+            </div>
+            <div id="chart">
+                <svg></svg>
+            </div>
+        </div>
+    </main>
 </body>
 
 </html>
