@@ -52,8 +52,13 @@ function getETHHistorical(value, unix) {
             const prices = data.prices;
             const marketCap = data.market_caps;
             const totalVol = data.total_volumes;
+            const price = "Price";
+            const volume = "Volume";
+            const mktCap = "Market Capitalization";
 
-            const resultArr = [];
+            const pricesArr = [];
+            const volArr = [];
+            const mktCapArr = [];
 
             prices.forEach(price => {
                 let unixTimestamp = price[0];
@@ -79,7 +84,7 @@ function getETHHistorical(value, unix) {
                         let date = price[0];
                         let numString = price[1];
                         let parsedNum = parseInt(numString);
-                        resultArr.push({date: new Date(date), value: parsedNum})
+                        pricesArr.push({date: new Date(date), value: parsedNum})
                     })
                     break;
                 }
@@ -89,7 +94,7 @@ function getETHHistorical(value, unix) {
                         let date = price[0];
                         let numString = price[1];
                         let parsedNum = parseInt(numString);
-                        resultArr.push({date: new Date(date), value: parsedNum})
+                        mktCapArr.push({date: new Date(date), value: parsedNum})
                     })
                     break;
                 }
@@ -99,7 +104,7 @@ function getETHHistorical(value, unix) {
                         let date = price[0];
                         let numString = price[1];
                         let parsedNum = parseInt(numString);
-                        resultArr.push({date: new Date(date), value: parsedNum})
+                        volArr.push({date: new Date(date), value: parsedNum})
                     })
                     break;
                 }
@@ -114,7 +119,17 @@ function getETHHistorical(value, unix) {
                 }
             }
 
-            drawChart(resultArr);
+            switch (true) {
+                case (pricesArr.length !== 0):
+                    drawChart(pricesArr, price)
+                    break;
+                case (volArr.length !== 0):
+                    drawChart(volArr, volume)
+                    break;
+                case (mktCapArr.length !== 0):
+                    drawChart(mktCapArr, mktCap)
+                    break;
+            }
         })
 }
 
