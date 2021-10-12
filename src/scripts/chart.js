@@ -64,9 +64,13 @@ module.exports = drawChart;
 //     const width = svgWidth - margin.left - margin.right;
 //     const height = svgHeight - margin.top - margin.bottom;
 
-//     const svg = d3.select('svg')
-//     svg.selectAll("svg > *").remove();
-//     svg.attr("width", svgWidth).attr("height", svgHeight);
+//     const svg = d3.select("chart")
+//         .selectAll("svg > *").remove()
+//         .append("svg")
+//         .attr("width", svgWidth).attr("height", svgHeight)
+//         .on("mouseover", mouseover)
+//         .on("mousemove", mousemove)
+//         .on("mouseleave", mouseleave)
 
 //     const g = svg.append("g")
 //         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
@@ -114,85 +118,39 @@ module.exports = drawChart;
 //         .attr("stroke-width", 1.5)
 //         .attr("d", line);
 
-//     const tooltip = svg.append("g");
+//     const Tooltip = d3.select("#chart")
+//         .append("div")
+//         .style("opacity", 0)
+//         .attr("class", "tooltip")
+//         .style("background-color", "white")
+//         .style("border", "solid")
+//         .style("border-width", "2px")
+//         .style("border-radius", "5px")
+//         .style("padding", "5px")
 
-//     svg.on("touchmove mousemove", function(event) {
-//         const {date, value} = bisect(d3.pointer(event, this)[0]);
+//     const mouseover = function(d) {
+//         Tooltip
+//             .style("opacity", 1)
+//             d3.select(this)
+//             .style("stroke", "black")
+//             .style("opacity", 1) 
+//     }
 
-//     tooltip
-//         .attr("transform", `translate(${x(date)},${y(value)})`)
-//         .call(callout, `${formatValue(value)}
-//         ${formatDate(date)}`);
-//     });
+//     const mousemove = function(d) {
+//         Tooltip
+//         .html("The exact value of<br>this cell is: " + d.value)
+//         .style("left", (d3.mouse(this)[0]+70) + "px")
+//         .style("top", (d3.mouse(this)[1]) + "px")
+//     }
 
-//     svg.on("touchend mouseleave", () => tooltip.call(callout, null));
+//     const mouseleave = function(d) {
+//         Tooltip
+//         .style("opacity", 0)
+//         d3.select(this)
+//         .style("stroke", "none")
+//         .style("opacity", 0.8)
+//     }
 
-//     return svg.node();
 // }
 
-// const callout = (g, value) => {
-//     if (!value) return g.style("display", "none");
-
-//   g
-//     .style("display", null)
-//     .style("pointer-events", "none")
-//     .style("font", "10px sans-serif");
-
-//   const path = g.selectAll("path")
-//     .data([null])
-//     .join("path")
-//       .attr("fill", "white")
-//       .attr("stroke", "black");
-
-//   const text = g.selectAll("text")
-//     .data([null])
-//     .join("text")
-//     .call(text => text
-//       .selectAll("tspan")
-//       .data((value + "").split(/\n/))
-//       .join("tspan")
-//         .attr("x", 0)
-//         .attr("y", (d, i) => `${i * 1.1}em`)
-//         .style("font-weight", (_, i) => i ? null : "bold")
-//         .text(d => d));
-
-//   const {x, y, width: w, height: h} = text.node().getBBox();
-
-//   text.attr("transform", `translate(${-w / 2},${15 - y})`);
-//   path.attr("d", `M${-w / 2 - 10},5H-5l5,-5l5,5H${w / 2 + 10}v${h + 20}h-${w + 20}z`);
-// }
-
-// function formatValue(value) {
-//   return value.toLocaleString("en", {
-//     style: "currency",
-//     currency: "USD"
-//   });
-// }
-
-// function formatDate(date) {
-//   return date.toLocaleString("en", {
-//     month: "short",
-//     day: "numeric",
-//     year: "numeric",
-//     timeZone: "UTC"
-//   });
-// }
-
-// function bisect(mx) {
-//     const bisect = d3.bisector(d => d.date).left;
-//     return mx => {
-//         const date = x.invert(mx);
-//         const index = bisect(data, date, 1);
-//         const a = data[index - 1];
-//         const b = data[index];
-//         return b && (date - a.date > b.date - date) ? b : a;
-//   };
-// }
-
-// module.exports = {
-//     drawChart,
-//     callout,
-//     formatValue,
-//     formatDate,
-//     bisect
-// }
+// module.exports = drawChart;

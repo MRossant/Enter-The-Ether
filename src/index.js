@@ -29,7 +29,7 @@ function getETHPrice() {
         .then(data => {
             curEthPrice = data.result.ethusd;
             const ethPriceHTML = document.getElementById("eth-price");
-            ethPriceHTML.innerHTML = `<h1>Current ETH Price: $${numberWithCommas(curEthPrice)}</h1>`
+            ethPriceHTML.innerHTML = `<h1>$${numberWithCommas(curEthPrice)}</h1>`
         })
 }
 
@@ -38,7 +38,7 @@ function getGasPrice() {
         .then(data => {
             console.log(data);
             const ethGasHTML = document.getElementById("eth-gas");
-            ethGasHTML.innerHTML = `<h1>Current Gas Price in Gwei: ${data.result.ProposeGasPrice}</h1>`
+            ethGasHTML.innerHTML = `<h1>${data.result.ProposeGasPrice}</h1>`
         })
 }
 
@@ -48,7 +48,7 @@ function getETHCir() {
             curEthCir = data.result * (10 ** -18);
             curEthCap = curEthCir * curEthPrice
             const ethCirHTML = document.getElementById("eth-cir");
-            ethCirHTML.innerHTML = `<h1>Total ETH in circulation: ${numberWithCommas(curEthCir.toFixed(2))}</h1>`
+            ethCirHTML.innerHTML = `<h1>${numberWithCommas(curEthCir.toFixed(2))}</h1>`
         })
 }
 
@@ -60,15 +60,32 @@ function getETHMarketCap() {
             curETHPerc1Hr = data.market_data.price_change_percentage_1h_in_currency.usd;
             curETHPerc24Hr = data.market_data.price_change_percentage_24h_in_currency.usd;
             curETHPerc7d = data.market_data.price_change_percentage_7d_in_currency.usd;
-            // console.log(curEthCap);
             const ethPriceChange1hrHTML = document.getElementById("eth-price-change-1hr");
             const ethPriceChange24hrHTML = document.getElementById("eth-price-change-24hr");
             const ethPriceChange7dHTML = document.getElementById("eth-price-change-7d");
             const ethCapHTML = document.getElementById("eth-cap");
-            ethCapHTML.innerHTML = `<h1>Current Total Market Cap: $${numberWithCommas(curEthCap)}</h1>`
-            ethPriceChange1hrHTML.innerHTML = `<h1>1hr Price Change: ${curETHPerc1Hr.toFixed(2)} %</h1>`
-            ethPriceChange24hrHTML.innerHTML = `<h1>24hr Price Change: ${curETHPerc24Hr.toFixed(2)} %</h1>`
-            ethPriceChange7dHTML.innerHTML = `<h1>7d Price Change: ${curETHPerc7d.toFixed(2)} %</h1>`
+            ethCapHTML.innerHTML = `<h1>$${numberWithCommas(curEthCap)}</h1>`
+            ethPriceChange1hrHTML.innerHTML = `<span>${curETHPerc1Hr.toFixed(2)} %</span>`;
+
+            if (curETHPerc1Hr < 0) {
+                ethPriceChange1hrHTML.classList.add("red");
+            } else {
+                ethPriceChange1hrHTML.classList.add("green");
+            }
+
+            ethPriceChange24hrHTML.innerHTML = `<span>${curETHPerc24Hr.toFixed(2)} %</span>`;
+            if (curETHPerc24Hr < 0) {
+                ethPriceChange24hrHTML.classList.add("red");
+            } else {
+                ethPriceChange24hrHTML.classList.add("green");
+            }
+
+            ethPriceChange7dHTML.innerHTML = `<span>${curETHPerc7d.toFixed(2)} %</span>`;
+            if (curETHPerc7d < 0) {
+                ethPriceChange7dHTML.classList.add("red");
+            } else {
+                ethPriceChange7dHTML.classList.add("green");
+            }
         })
 }
 
