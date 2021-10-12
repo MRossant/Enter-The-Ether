@@ -85,3 +85,8 @@ table {
 .line-chart {
   border: 1px solid lightgray;
 }
+
+#chart {
+  display: flex;
+  flex-direction: column;
+}

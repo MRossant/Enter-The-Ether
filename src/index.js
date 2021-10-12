@@ -1,6 +1,5 @@
 import drawChart from "./scripts/chart";
 
-
 const PRICES = 'PRICES';
 const MARKET = 'MARKET';
 const VOLUME = 'VOLUME';
@@ -8,6 +7,13 @@ const unixOct1121 = 1633924800;
 const unixApr1221 = 1618200000;
 const unixOct1220 = 1602475200;
 const unixOct1219 = 1570852800;
+let curEthPrice = 0;
+let curEthCir = 0;
+let curEthCap = 0;
+let curETHPerc1Hr = 0;
+let curETHPerc24Hr = 0;
+let curETHPerc7d = 0;
+
 
 async function getData(url) {
     const response = await fetch(url);
@@ -21,16 +27,47 @@ async function getData(url) {
 function getETHPrice() {
     getData("https://api.etherscan.io/api?module=stats&action=ethprice&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
         .then(data => {
+            curEthPrice = data.result.ethusd;
             const ethPriceHTML = document.getElementById("eth-price");
-            ethPriceHTML.innerHTML = `<h1>Current ETH Price: $${data.result.ethusd}</h1>`
+            ethPriceHTML.innerHTML = `<h1>Current ETH Price: $${curEthPrice}</h1>`
         })
 }
 
 function getGasPrice() {
     getData("https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
         .then(data => {
-            const ethPriceHTML = document.getElementById("eth-gas");
-            ethPriceHTML.innerHTML = `<h1>Current Gas Price in Gwei: ${data.result.ProposeGasPrice}</h1>`
+            const ethGasHTML = document.getElementById("eth-gas");
+            ethGasHTML.innerHTML = `<h1>Current Gas Price in Gwei: ${data.result.ProposeGasPrice}</h1>`
+        })
+}
+
+function getETHCir() {
+    getData("https://api.etherscan.io/api?module=stats&action=ethsupply&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
+        .then(data => {
+            curEthCir = data.result * (10 ** -18);
+            curEthCap = curEthCir * curEthPrice
+            const ethCirHTML = document.getElementById("eth-cir");
+            ethCirHTML.innerHTML = `<h1>Total ETH in circulation: ${curEthCir}</h1>`
+        })
+}
+
+function getETHMarketCap() {
+    getData("https://api.coingecko.com/api/v3/coins/ethereum?localization=false&market_data=true&community_data=false&developer_data=true")
+        .then(data => {
+            console.log(data);
+            curEthCap = data.market_data.market_cap.usd;
+            curETHPerc1Hr = data.market_data.price_change_percentage_1h_in_currency.usd;
+            curETHPerc24Hr = data.market_data.price_change_percentage_24h_in_currency.usd;
+            curETHPerc7d = data.market_data.price_change_percentage_7d_in_currency.usd;
+            // console.log(curEthCap);
+            const ethPriceChange1hrHTML = document.getElementById("eth-price-change-1hr");
+            const ethPriceChange24hrHTML = document.getElementById("eth-price-change-24hr");
+            const ethPriceChange7dHTML = document.getElementById("eth-price-change-7d");
+            const ethCapHTML = document.getElementById("eth-cap");
+            ethCapHTML.innerHTML = `<h1>Current Total Market Cap: $${curEthCap}</h1>`
+            ethPriceChange1hrHTML.innerHTML = `<h1>1hr Price Change: ${curETHPerc1Hr} %</h1>`
+            ethPriceChange24hrHTML.innerHTML = `<h1>24hr Price Change: ${curETHPerc24Hr} %</h1>`
+            ethPriceChange7dHTML.innerHTML = `<h1>7d Price Change: ${curETHPerc7d} %</h1>`
         })
 }
 
@@ -141,19 +178,17 @@ document.addEventListener("DOMContentLoaded", () => {
     })
 
     // Get Current Eth Price
-    getETHPrice()
+    getETHPrice();
     // Get Current Gas Price
-    getGasPrice()
-
+    getGasPrice();
     // Get Current amount of ETH in circulation
-    // getData("https://api.etherscan.io/api?module=stats&action=ethsupply&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
-    //     .then(data => {
-    //         let totalEthCir = data.result * (10 ** -18);
-    //         console.log(totalEthCir);
-    //     })
+    getETHCir();
+
+    // Get Current ETH Market Cap
+    getETHMarketCap();
 
     // Get ETH historical daily market data for past 6 months (price, volume, market cap)
-    getETHHistorical(PRICES, unixApr1221)
+    getETHHistorical(PRICES, unixApr1221);
 })
 
 window.addEventListener('load', () => {

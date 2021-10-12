@@ -1,6 +1,6 @@
 function drawChart(data, title) {
-    const svgWidth = 600, svgHeight = 400;
-    const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+    const svgWidth = 1000, svgHeight = 500;
+    const margin = { top: 20, right: 20, bottom: 30, left: 88 };
     const width = svgWidth - margin.left - margin.right;
     const height = svgHeight - margin.top - margin.bottom;
 

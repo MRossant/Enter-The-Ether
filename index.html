@@ -23,25 +23,33 @@
     </div>
 
     <div id="home-page">
+        
+        <h1 id="eth-price"></h1>
+        <h1 id="eth-price-change-1hr"></h1>
+        <h1 id="eth-price-change-24hr"></h1>
+        <h1 id="eth-price-change-7d"></h1>
+        <h1 id="eth-gas"></h1>
+        <h1 id="eth-cir"></h1>
+        <h1 id="eth-cap"></h1>
+        
         <label for="data-type">Choose a data type:</label>
         <select id="data-type">
             <option value="historical-prices">Historical Prices</option>
             <option value="historical-marketcap">Historical Market Cap</option>
             <option value="historical-volume">Historical Volume</option>
         </select>
-
+        
         <label for="time-range">Choose a time range:</label>
         <select id="time-range">
             <option value="historical-six-months">6 months</option>
             <option value="historical-one-yr">1 year</option>
             <option value="historical-two-yrs">2 years</option>
         </select>
-
+        
         <button id="submit-chart">Submit</button>
-
-        <h1 id="eth-price"></h1>
-        <h1 id="eth-gas"></h1>
-        <svg></svg>
+        <div id="chart">
+            <svg></svg>
+        </div>
     </div>
 </body>
 
