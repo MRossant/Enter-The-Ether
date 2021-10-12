@@ -5,8 +5,8 @@ function drawChart(data) {
     const height = svgHeight - margin.top - margin.bottom;
 
     const svg = d3.select('svg')
-        .attr("width", svgWidth)
-        .attr("height", svgHeight);
+    svg.selectAll("svg > *").remove();
+    svg.attr("width", svgWidth).attr("height", svgHeight);
 
     const g = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
