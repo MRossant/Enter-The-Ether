@@ -1,9 +1,13 @@
 import drawChart from "./scripts/chart";
 
 
-const PRICES = 'PRICES'
-const MARKET = 'MARKET'
-const VOLUME = 'VOLUME'
+const PRICES = 'PRICES';
+const MARKET = 'MARKET';
+const VOLUME = 'VOLUME';
+const unixOct1121 = 1633924800;
+const unixApr1221 = 1618200000;
+const unixOct1220 = 1602475200;
+const unixOct1219 = 1570852800;
 
 async function getData(url) {
     const response = await fetch(url);
@@ -41,10 +45,10 @@ function timeConverter(unixTimestamp) {
     return fullDate;
 }
 
-function getETHHistorical(value) {
-    getData("https://api.coingecko.com/api/v3/coins/ethereum/market_chart/range?vs_currency=usd&from=1618176695&to=1633901495")
+function getETHHistorical(value, unix) {
+    getData(`https://api.coingecko.com/api/v3/coins/ethereum/market_chart/range?vs_currency=usd&from=${unix}&to=1633924800`)
         .then(data => {
-            console.log(data);
+            console.log(data)
             const prices = data.prices;
             const marketCap = data.market_caps;
             const totalVol = data.total_volumes;
@@ -116,7 +120,6 @@ function getETHHistorical(value) {
 
 document.addEventListener("DOMContentLoaded", () => {
     const enterBtn = document.querySelector("#cta-enter");
-    console.log(enterBtn);
     enterBtn.addEventListener("click", e => {
         document.getElementById("fp-modal").style.display = "none";
         document.getElementById("home-page").style.display = "block";
@@ -135,28 +138,59 @@ document.addEventListener("DOMContentLoaded", () => {
     //     })
 
     // Get ETH historical daily market data for past 6 months (price, volume, market cap)
-    getETHHistorical(PRICES)
+    getETHHistorical(PRICES, unixApr1221)
 })
 
 window.addEventListener('load', () => {
-    let selectedOption = document.getElementById("data-type")
-    selectedOption.addEventListener("change", e => {
-        let selectedValue = selectedOption.options[selectedOption.selectedIndex].value
-        switch (selectedValue) {
-            case "historical-prices": {
-                getETHHistorical(PRICES)
+    let selectedOption = document.getElementById("data-type");
+    let selectedRange = document.getElementById("time-range");
+    let submitBtn = document.getElementById("submit-chart");
+    submitBtn.addEventListener("click", e => {
+        let selectedValue = selectedOption.options[selectedOption.selectedIndex].value;
+        console.log(selectedValue);
+        let selectedDate = selectedRange.options[selectedRange.selectedIndex].value;
+        console.log(selectedDate);
+
+
+        switch (true) {
+            case (selectedValue === "historical-prices" && selectedDate === "historical-six-months"): {
+                getETHHistorical(PRICES, unixApr1221)
                 break;
             }
-            case "historical-marketcap": {
-                getETHHistorical(MARKET)
+            case (selectedValue === "historical-prices" && selectedDate === "historical-one-yr"): {
+                getETHHistorical(PRICES, unixOct1220)
                 break;
             }
-            case "historical-volume": {
-                getETHHistorical(VOLUME)
+            case (selectedValue === "historical-prices" && selectedDate === "historical-two-yrs"): {
+                getETHHistorical(PRICES, unixOct1219)
+                break;
+            }
+            case (selectedValue === "historical-marketcap" && selectedDate === "historical-six-months"): {
+                getETHHistorical(MARKET, unixApr1221)
+                break;
+            }
+            case (selectedValue === "historical-marketcap" && selectedDate === "historical-one-yr"): {
+                getETHHistorical(MARKET, unixOct1220)
+                break;
+            }
+            case (selectedValue === "historical-marketcap" && selectedDate === "historical-two-yrs"): {
+                getETHHistorical(MARKET, unixOct1219)
+                break;
+            }
+            case (selectedValue === "historical-volume" && selectedDate === "historical-six-months"): {
+                getETHHistorical(VOLUME, unixApr1221)
+                break;
+            }
+            case (selectedValue === "historical-volume" && selectedDate === "historical-one-yr"): {
+                getETHHistorical(VOLUME, unixOct1220)
+                break;
+            }
+            case (selectedValue === "historical-volume" && selectedDate === "historical-two-yrs"): {
+                getETHHistorical(VOLUME, unixOct1219)
                 break;
             }
             default: {
-                getETHHistorical(PRICES)
+                getETHHistorical(PRICES, unixApr1221)
             }
         }
     })
