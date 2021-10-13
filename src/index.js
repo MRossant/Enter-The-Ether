@@ -182,6 +182,7 @@ function getETHHistorical(value, unix) {
 
             switch (true) {
                 case (pricesArr.length !== 0):
+                    console.log(pricesArr)
                     drawChart(pricesArr, price)
                     break;
                 case (volArr.length !== 0):

@@ -149,6 +149,10 @@ div label {
   font-weight: normal;
 }
 
+.focus {
+  font-family: "Montserrat", sans-serif;
+}
+
 #table {
   border-collapse: collapse;
   box-shadow: 0 5px 10px gray;
