@@ -65,6 +65,7 @@
     <link rel="stylesheet" href="./dist/main.css" />
     <script src="./dist/main.js"></script>
     <script src='https://d3js.org/d3.v4.min.js'></script>
+    <script src="https://kit.fontawesome.com/a92af1662d.js" crossorigin="anonymous"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;600&display=swap" rel="stylesheet">
@@ -74,7 +75,7 @@
 <body>
     <main>
         <div id="fp-modal">
-            <img src="assets/ethereum-eth-logo-animated.gif" alt="Ethereum gif logo" />
+            <img src="assets/ethereum-eth-logo-animated.gif" alt="Ethereum gif logo" width="400" height="400"/>
             <p>Introducing 'Enter the Ether', an interactive visualization of the Ethereum blockchain. </p>
             <p>Take a dive into the Ether by clicking the button below:</p>
             <button id="cta-enter">Enter the Ether</button>
@@ -89,7 +90,7 @@
                     <th class="table-head">1hr %</th>
                     <th class="table-head">24hr %</th>
                     <th class="table-head">7d %</th>
-                    <th class="table-head">Market Cap</th>
+                    <th class="table-head">Market Cap <i class="fas fa-info-circle popup"><p class="popuptext" id="mkt-cap-pop">Market Cap = Current Price * Circulating Supply.</p></i></th>
                     <th class="table-head">Circulating Supply</th>
                     <th class="table-head">Gas Price (Gwei)</th>
                 </tr>

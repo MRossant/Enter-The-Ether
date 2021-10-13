@@ -24,6 +24,7 @@ async function getData(url) {
     return data;
 }
 
+
 function getETHPrice() {
     getData("https://api.etherscan.io/api?module=stats&action=ethprice&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
         .then(data => {
@@ -199,6 +200,13 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("home-page").style.display = "block";
     })
 
+    const infoBtn = document.getElementsByClassName("popup");
+    infoBtn[0].addEventListener("click", () => {
+        const popup = document.getElementById("mkt-cap-pop");
+        popup.classList.toggle("show");
+    })
+
+    // togglePopUp()
     // Get Current Eth Price
     getETHPrice();
     // Get Current Gas Price

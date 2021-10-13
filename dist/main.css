@@ -65,6 +65,7 @@ body:before {
   z-index: -1;
   background-color: #f8f9d2;
   background-image: linear-gradient(315deg, #f8f9d2 0%, #e8dbfc 74%);
+  font-family: "Montserrat", sans-serif;
 }
 
 #home-page {
@@ -96,6 +97,9 @@ body:before {
 #cta-enter {
   height: 40px;
   font-family: "Montserrat", sans-serif;
+  font-weight: bold;
+  background-color: #000080;
+  color: white;
 }
 
 #fp-modal {
@@ -107,8 +111,38 @@ body:before {
 }
 
 #fp-modal p {
+  margin-top: 20px;
   margin-bottom: 40px;
   font-family: "Montserrat", sans-serif;
+  width: 400px;
+  font-size: 25px;
+}
+
+#submit-chart {
+  height: 25px;
+  font-family: "Montserrat", sans-serif;
+  background-color: #000080;
+  color: white;
+  font-weight: bold;
+}
+
+#submit-chart:hover {
+  background-color: blueviolet;
+}
+
+#data-type {
+  height: 25px;
+  font-family: "Montserrat", sans-serif;
+}
+
+#time-range {
+  height: 25px;
+  font-family: "Montserrat", sans-serif;
+}
+
+div label {
+  color: black;
+  font-weight: normal;
 }
 
 #table {
@@ -134,6 +168,64 @@ td {
   font-weight: 400;
 }
 
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 10;
+  top: 125%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
+#mkt-cap-pop {
+  font-size: 12px;
+}
+
+@-webkit-keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .line-chart {
   border: 1px solid lightgray;
 }
