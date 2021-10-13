@@ -3,7 +3,8 @@ import drawChart from "./scripts/chart";
 const PRICES = 'PRICES';
 const MARKET = 'MARKET';
 const VOLUME = 'VOLUME';
-const unixOct1121 = 1633924800;
+const unixOct1321 = 1634097600;
+const unixJul1221 = 1626123600;
 const unixApr1221 = 1618200000;
 const unixOct1220 = 1602475200;
 const unixOct1219 = 1570852800;
@@ -106,7 +107,7 @@ function timeConverter(unixTimestamp) {
 }
 
 function getETHHistorical(value, unix) {
-    getData(`https://api.coingecko.com/api/v3/coins/ethereum/market_chart/range?vs_currency=usd&from=${unix}&to=1633924800`)
+    getData(`https://api.coingecko.com/api/v3/coins/ethereum/market_chart/range?vs_currency=usd&from=${unix}&to=1634097600`)
         .then(data => {
             console.log(data)
             const prices = data.prices;
@@ -218,7 +219,7 @@ document.addEventListener("DOMContentLoaded", () => {
     getETHMarketCap();
 
     // Get ETH historical daily market data for past 6 months (price, volume, market cap)
-    getETHHistorical(PRICES, unixApr1221);
+    getETHHistorical(PRICES, unixJul1221);
 })
 
 window.addEventListener('load', () => {
@@ -233,6 +234,10 @@ window.addEventListener('load', () => {
 
 
         switch (true) {
+            case (selectedValue === "historical-prices" && selectedDate === "historical-three-months"): {
+                getETHHistorical(PRICES, unixJul1221)
+                break;
+            }
             case (selectedValue === "historical-prices" && selectedDate === "historical-six-months"): {
                 getETHHistorical(PRICES, unixApr1221)
                 break;
@@ -245,6 +250,10 @@ window.addEventListener('load', () => {
                 getETHHistorical(PRICES, unixOct1219)
                 break;
             }
+            case (selectedValue === "historical-marketcap" && selectedDate === "historical-three-months"): {
+                getETHHistorical(MARKET, unixJul1221)
+                break;
+            }
             case (selectedValue === "historical-marketcap" && selectedDate === "historical-six-months"): {
                 getETHHistorical(MARKET, unixApr1221)
                 break;
@@ -255,6 +264,10 @@ window.addEventListener('load', () => {
             }
             case (selectedValue === "historical-marketcap" && selectedDate === "historical-two-yrs"): {
                 getETHHistorical(MARKET, unixOct1219)
+                break;
+            }
+            case (selectedValue === "historical-volume" && selectedDate === "historical-three-months"): {
+                getETHHistorical(VOLUME, unixJul1221)
                 break;
             }
             case (selectedValue === "historical-volume" && selectedDate === "historical-six-months"): {
@@ -270,7 +283,7 @@ window.addEventListener('load', () => {
                 break;
             }
             default: {
-                getETHHistorical(PRICES, unixApr1221)
+                getETHHistorical(PRICES, unixJul1221)
             }
         }
     })
