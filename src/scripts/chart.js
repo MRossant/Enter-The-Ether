@@ -1,7 +1,7 @@
 function drawChart(data, title) {
-    const svgWidth = 1000, svgHeight = 500;
+    const svgWidth = 1500, svgHeight = 500;
     const margin = { top: 20, right: 20, bottom: 30, left: 88 };
-    const width = svgWidth - margin.left - margin.right;
+    const width = 1000 - margin.left - margin.right;
     const height = svgHeight - margin.top - margin.bottom;
 
     const svg = d3.select('svg')
@@ -60,13 +60,16 @@ function drawChart(data, title) {
 
     const focus = g.append("g")
         .attr("class", "focus")
-        .style("display", "none");
+        .style("width", "auto")
+        .style("display", "none")
+        .style("position", "absolute")
+        // .style("z-index", 1000)
     
     focus.append("circle")
         .attr("class", "y")
         .style("fill", "none")
         .style("stroke", "blueviolet")
-        .attr("r", 4);
+        .attr("r", 3.5);
 
     focus.append("text")
         .attr("x", 9)
@@ -76,7 +79,8 @@ function drawChart(data, title) {
       .attr("class", "overlay")
       .attr("width", width)
       .attr("height", height)
-      .style("margin-left", "5px")
+      .style("position", "absolute")
+    //   .style("margin-left", "5px")
       .style("fill", "none")
       .style("pointer-events", "all")
       .on("mouseover", function() { focus.style("display", null); })
@@ -91,8 +95,12 @@ function drawChart(data, title) {
         d0 = data[i - 1],
         d1 = data[i],
         d = x0 - d0.date > d1.date - x0 ? d1 : d0;
-        focus.attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")");
-        focus.select("text").text(`${formatCurrency(d.value)}`);
+        // let valuesArr = [formatCurrency(d.value), d.date];
+        focus.attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
+        // focus.select("text").html(`${formatCurrency(d.value)}` + `<br>` + `${d.date}`)
+        focus.select("text").html(function() {
+            return `${formatCurrency(d.value)}` + ` ${d.date}`
+        });
     }
     
 }

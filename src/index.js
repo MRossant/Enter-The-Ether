@@ -208,7 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
         popup.classList.toggle("show");
     })
 
-    // togglePopUp()
     // Get Current Eth Price
     getETHPrice();
     // Get Current Gas Price

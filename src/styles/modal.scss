@@ -35,6 +35,7 @@ body:before {
 #chart-options {
     padding: 1rem 2rem;
     font-family: 'Montserrat', sans-serif;
+    margin-left: 8.5%;
 }
 
 #cta-enter {
@@ -100,6 +101,7 @@ div label {
 
 .focus {
     font-family: 'Montserrat', sans-serif;
+    z-index: 10;
 }
 
 #table {
@@ -109,6 +111,11 @@ div label {
     background-color: white;
     text-align: left;
     overflow: hidden;
+    margin-left: 8.5%;
+}
+
+svg {
+    margin-left: 8.5%;
 }
 
 th {
