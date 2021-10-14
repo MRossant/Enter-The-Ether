@@ -69,7 +69,7 @@ function drawChart(data, title) {
     
     focus.append("circle")
         .attr("class", "y")
-        .style("fill", "none")
+        .style("fill", "blueviolet")
         .style("stroke", "blueviolet")
         .attr("r", 3.5);
 

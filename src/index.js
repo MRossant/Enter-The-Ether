@@ -1,9 +1,11 @@
+// import fetch from "node-fetch";
 import drawChart from "./scripts/chart";
 
 const PRICES = 'PRICES';
 const MARKET = 'MARKET';
 const VOLUME = 'VOLUME';
 const unixOct1321 = 1634097600;
+const unixOct1421 = 1634221800;
 const unixJul1221 = 1626123600;
 const unixApr1221 = 1618200000;
 const unixOct1220 = 1602475200;
@@ -25,6 +27,15 @@ async function getData(url) {
     return data;
 }
 
+function getDataApi(path) { // "price"
+    fetch(`price`)
+        .then(res => {
+            debugger
+            res.json()
+        })
+        .then(data => data)
+}
+window.getDataApi = getDataApi;
 
 function getETHPrice() {
     getData("https://api.etherscan.io/api?module=stats&action=ethprice&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
@@ -107,7 +118,7 @@ function timeConverter(unixTimestamp) {
 }
 
 function getETHHistorical(value, unix) {
-    getData(`https://api.coingecko.com/api/v3/coins/ethereum/market_chart/range?vs_currency=usd&from=${unix}&to=1634097600`)
+    getData(`https://api.coingecko.com/api/v3/coins/ethereum/market_chart/range?vs_currency=usd&from=${unix}&to=1634221800`)
         .then(data => {
             console.log(data)
             const prices = data.prices;
