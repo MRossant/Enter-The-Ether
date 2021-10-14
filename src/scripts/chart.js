@@ -14,6 +14,8 @@ function drawChart(data, title) {
     const x = d3.scaleTime().rangeRound([0, width]);
     const y = d3.scaleLinear().rangeRound([height, 0]);
 
+    var parseTime = d3.timeFormat("%B %d, %Y");
+
     const line = d3.line()
         .x(function(d) {
             return x(d.date)
@@ -99,7 +101,7 @@ function drawChart(data, title) {
         focus.attr("transform", "translate(" + x(d.date) + "," + y(d.value) + ")")
         // focus.select("text").html(`${formatCurrency(d.value)}` + `<br>` + `${d.date}`)
         focus.select("text").html(function() {
-            return `${formatCurrency(d.value)}` + ` ${d.date}`
+            return `${formatCurrency(d.value)}` + ` ${parseTime(d.date)}`
         });
     }
     

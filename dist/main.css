@@ -241,6 +241,10 @@ td {
     opacity: 1;
   }
 }
+#github {
+  margin-left: 1300px;
+}
+
 .line-chart {
   border: 1px solid lightgray;
 }
