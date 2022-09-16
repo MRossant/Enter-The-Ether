@@ -51,10 +51,10 @@ app.listen(PORT, () => {
 
 // Get ETH Price
 app.get('/price', (request, response) => {
-    debugger;
+    // debugger;
   const urlStart = 'https://api.etherscan.io/api?module=stats&action=ethprice&apikey';
   const apiKey = process.env.API_KEY; // from .env (dev) or Heroku
-  debugger;
+  // debugger;
   const url = `${urlStart}=${apiKey}`;
 
   console.log(`Fetching: ${url}`);

@@ -1,9 +1,11 @@
 // import fetch from "node-fetch";
 import drawChart from "./scripts/chart";
+require('dotenv').config();
 
 const PRICES = 'PRICES';
 const MARKET = 'MARKET';
 const VOLUME = 'VOLUME';
+const EtherscanAPIKey = process.env.ETHERSCAN_API_KEY;
 const unixOct1321 = 1634097600;
 const unixOct1421 = 1634221800;
 const unixJul1221 = 1626123600;
@@ -30,15 +32,14 @@ async function getData(url) {
 function getDataApi(path) { // "price"
     fetch(`price`)
         .then(res => {
-            debugger
+            // debugger
             res.json()
         })
-        .then(data => data)
 }
 window.getDataApi = getDataApi;
 
 function getETHPrice() {
-    getData("https://api.etherscan.io/api?module=stats&action=ethprice&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
+    getData(`https://api.etherscan.io/api?module=stats&action=ethprice&apikey=${EtherscanAPIKey}`)
         .then(data => {
             curEthPrice = data.result.ethusd;
             const ethPriceHTML = document.getElementById("eth-price");
@@ -47,16 +48,15 @@ function getETHPrice() {
 }
 
 function getGasPrice() {
-    getData("https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
+    getData(`https://api.etherscan.io/api?module=gastracker&action=gasoracle&apikey=${EtherscanAPIKey}`)
         .then(data => {
-            console.log(data);
             const ethGasHTML = document.getElementById("eth-gas");
             ethGasHTML.innerHTML = `<h1>${data.result.ProposeGasPrice}</h1>`
         })
 }
 
 function getETHCir() {
-    getData("https://api.etherscan.io/api?module=stats&action=ethsupply&apikey=UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D")
+    getData(`https://api.etherscan.io/api?module=stats&action=ethsupply&apikey=${EtherscanAPIKey}`)
         .then(data => {
             curEthCir = data.result * (10 ** -18);
             curEthCap = curEthCir * curEthPrice
@@ -68,7 +68,6 @@ function getETHCir() {
 function getETHMarketCap() {
     getData("https://api.coingecko.com/api/v3/coins/ethereum?localization=false&market_data=true&community_data=false&developer_data=true")
         .then(data => {
-            console.log(data);
             curEthCap = data.market_data.market_cap.usd;
             curETHPerc1Hr = data.market_data.price_change_percentage_1h_in_currency.usd;
             curETHPerc24Hr = data.market_data.price_change_percentage_24h_in_currency.usd;
@@ -113,14 +112,13 @@ function timeConverter(unixTimestamp) {
     let month = a.getMonth()+1;
     month.toString();
     let date = a.getDate();
-    let fullDate = year + '-' + month + '-' + date;
+    let fullDate = year + '-' + month + '-' + date; // 2021-10-21
     return fullDate;
 }
 
 function getETHHistorical(value, unix) {
     getData(`https://api.coingecko.com/api/v3/coins/ethereum/market_chart/range?vs_currency=usd&from=${unix}&to=1634221800`)
         .then(data => {
-            console.log(data)
             const prices = data.prices;
             const marketCap = data.market_caps;
             const totalVol = data.total_volumes;
@@ -193,7 +191,6 @@ function getETHHistorical(value, unix) {
 
             switch (true) {
                 case (pricesArr.length !== 0):
-                    console.log(pricesArr)
                     drawChart(pricesArr, price)
                     break;
                 case (volArr.length !== 0):
@@ -239,9 +236,7 @@ window.addEventListener('load', () => {
     let submitBtn = document.getElementById("submit-chart");
     submitBtn.addEventListener("click", e => {
         let selectedValue = selectedOption.options[selectedOption.selectedIndex].value;
-        console.log(selectedValue);
         let selectedDate = selectedRange.options[selectedRange.selectedIndex].value;
-        console.log(selectedDate);
 
 
         switch (true) {
