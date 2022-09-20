@@ -1,10 +1,12 @@
 // import fetch from "node-fetch";
 import drawChart from "./scripts/chart";
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 const PRICES = 'PRICES';
 const MARKET = 'MARKET';
 const VOLUME = 'VOLUME';
-const EtherscanAPIKey = 'UMRN2NVDV6CCZJB2QM1SAAZMEXUHNFDV7D';
+const EtherscanAPIKey = process.env.ETHERSCAN_API_KEY;
 const currentUnixTimestamp = getCurrentUnixTimestamp();
 const unix3Months = getPreviousDateUnix(90);
 const unix6Months = getPreviousDateUnix(180);
